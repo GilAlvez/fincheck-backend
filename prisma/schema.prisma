@@ -1,0 +1,87 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String  @id @db.Uuid
+  active   Boolean @default(true)
+  name     String
+  email    String  @unique
+  password String
+
+  bank_accounts BankAccount[]
+  categories    Category[]
+  transactions  Transaction[]
+
+  @@map("users")
+}
+
+model BankAccount {
+  id              String          @id @db.Uuid
+  name            String
+  initial_balance Float
+  type            BankAccountType
+  color           String
+  user_id         String          @db.Uuid
+
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  transactions Transaction[]
+
+  @@map("bank_accounts")
+}
+
+model Category {
+  id      String          @id @db.Uuid
+  name    String
+  icon    String
+  type    TransactionType
+  user_id String          @db.Uuid
+
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  transactions Transaction[]
+
+  @@map("categories")
+}
+
+model Transaction {
+  id              String          @id @db.Uuid
+  name            String
+  value           Float
+  date            DateTime
+  type            TransactionType
+  user_id         String          @db.Uuid
+  bank_account_id String          @db.Uuid
+  category_id     String?         @db.Uuid
+
+  user         User        @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  bank_account BankAccount @relation(fields: [bank_account_id], references: [id], onDelete: Cascade)
+  category     Category?   @relation(fields: [category_id], references: [id], onDelete: SetNull)
+
+  @@map("transactions")
+}
+
+// Enums
+enum BankAccountType {
+  checking
+  investment
+  cash
+
+  @@map("bank_account_type")
+}
+
+enum TransactionType {
+  income
+  expense
+
+  @@map("transaction_type")
+}
