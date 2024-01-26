@@ -3,5 +3,8 @@
   "[prisma]": {
     "editor.defaultFormatter": "Prisma.prisma",
     "editor.formatOnSave": true
+  },
+  "search.exclude": {
+      "**/prisma/migrations": true
   }
 }
