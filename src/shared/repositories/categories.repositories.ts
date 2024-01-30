@@ -5,7 +5,7 @@ import { PrismaService } from '../services/prisma.service';
 export class CategoriesRepository {
   constructor(private readonly prismaService: PrismaService) {}
 
-  findManyById(id: string) {
+  findManyByUserId(id: string) {
     return this.prismaService.category.findMany({
       where: { user_id: id },
     });
