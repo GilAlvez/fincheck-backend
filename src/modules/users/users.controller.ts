@@ -1,13 +1,13 @@
-import { Body, Controller, Post } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
+import { Controller, Get } from '@nestjs/common';
+import { JwtPayload } from 'src/shared/decorators/jwt-payload';
 import { UsersService } from './users.service';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
+  @Get('profile')
+  profile(@JwtPayload() payload: JwtPayload) {
+    return this.usersService.getUserById(payload.sub);
   }
 }
