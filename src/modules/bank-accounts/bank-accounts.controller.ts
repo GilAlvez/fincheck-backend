@@ -3,14 +3,17 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
+  HttpStatus,
   Param,
+  ParseUUIDPipe,
   Post,
   Put,
 } from '@nestjs/common';
 import { JwtPayload } from 'src/shared/decorators/jwt-payload';
-import { BankAccountsService } from './bank-accounts.service';
 import { CreateBankAccountDto } from './dto/create-bank-account.dto';
 import { UpdateBankAccountDto } from './dto/update-bank-account.dto';
+import { BankAccountsService } from './services/bank-accounts.service';
 
 @Controller('bank-accounts')
 export class BankAccountsController {
@@ -32,16 +35,25 @@ export class BankAccountsController {
     return this.bankAccountsService.findAllByUserId(jwtPayload.sub);
   }
 
-  @Put(':id')
+  @Put(':bankAccountId')
   update(
-    @Param('id') id: string,
+    @JwtPayload() jwtPayload: JwtPayload,
+    @Param('bankAccountId', ParseUUIDPipe) bankAccountId: string,
     @Body() updateBankAccountDto: UpdateBankAccountDto,
   ) {
-    return this.bankAccountsService.update(id, updateBankAccountDto);
+    return this.bankAccountsService.update(
+      jwtPayload.sub,
+      bankAccountId,
+      updateBankAccountDto,
+    );
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.bankAccountsService.remove(id);
+  @Delete(':bankAccountId')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  remove(
+    @JwtPayload() jwtPayload: JwtPayload,
+    @Param('bankAccountId', ParseUUIDPipe) bankAccountId: string,
+  ) {
+    return this.bankAccountsService.remove(jwtPayload.sub, bankAccountId);
   }
 }
