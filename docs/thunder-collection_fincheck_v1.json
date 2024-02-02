@@ -1,0 +1,273 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "fincheck",
+    "dateExported": "2024-02-01T23:34:51.152Z",
+    "version": "1.1",
+    "folders": [
+        {
+            "_id": "2cdbc725-98ef-485d-9b74-844265ad3df7",
+            "name": "Users",
+            "containerId": "",
+            "created": "2024-01-24T11:50:12.604Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "acbc7985-40a2-4c21-a3c8-35b50fb7cace",
+            "name": "Auth",
+            "containerId": "",
+            "created": "2024-01-26T20:16:58.097Z",
+            "sortNum": 20000
+        },
+        {
+            "_id": "e7a6b2d9-0741-4b78-804d-81c5812645f1",
+            "name": "Categories",
+            "containerId": "",
+            "created": "2024-01-30T22:56:06.448Z",
+            "sortNum": 30000
+        },
+        {
+            "_id": "528ce9aa-2952-478c-824c-ca903e93161e",
+            "name": "Bank Accounts",
+            "containerId": "",
+            "created": "2024-01-30T23:01:05.420Z",
+            "sortNum": 40000
+        },
+        {
+            "_id": "e7cdbdd6-d1b2-4184-aaa7-88b7381ab0ee",
+            "name": "Transactions",
+            "containerId": "",
+            "created": "2024-02-01T23:32:35.598Z",
+            "sortNum": 50000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "12f616c4-dbdc-43c0-bd66-6458efdbcb36",
+            "colId": "ae4cefd5-bd35-4e5a-a54e-76a910a12d76",
+            "containerId": "acbc7985-40a2-4c21-a3c8-35b50fb7cace",
+            "name": "Sign Up",
+            "url": "{{base_url}}/auth/sign-up",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-01-24T11:50:00.469Z",
+            "modified": "2024-01-27T12:18:37.673Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"Gildson\",\n  \"email\": \"gildson_af+1@outlook.com\",\n  \"password\": \"12345678\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "39eba3de-2c22-4aeb-9565-fcffd0415741",
+            "colId": "ae4cefd5-bd35-4e5a-a54e-76a910a12d76",
+            "containerId": "acbc7985-40a2-4c21-a3c8-35b50fb7cace",
+            "name": "Sign In",
+            "url": "{{base_url}}/auth/sign-in",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2024-01-26T20:17:09.088Z",
+            "modified": "2024-01-27T12:18:07.473Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"Gildson\",\n  \"email\": \"gildson_af+123@outlook.com\",\n  \"password\": \"12345678\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "7d032c28-221a-4c51-96ee-01c7c1bbdfa1",
+            "colId": "ae4cefd5-bd35-4e5a-a54e-76a910a12d76",
+            "containerId": "2cdbc725-98ef-485d-9b74-844265ad3df7",
+            "name": "Profile",
+            "url": "{{base_url}}/users/profile",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2024-01-27T12:25:39.576Z",
+            "modified": "2024-01-30T23:04:24.625Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{access_token}}"
+            },
+            "tests": []
+        },
+        {
+            "_id": "1db4d615-e3f6-4836-9341-0226acd51233",
+            "colId": "ae4cefd5-bd35-4e5a-a54e-76a910a12d76",
+            "containerId": "e7a6b2d9-0741-4b78-804d-81c5812645f1",
+            "name": "Get All By User Id",
+            "url": "{{base_url}}/categories",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2024-01-30T22:56:20.678Z",
+            "modified": "2024-01-30T23:04:18.595Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{access_token}}"
+            },
+            "tests": []
+        },
+        {
+            "_id": "1d932865-c4bc-4ef2-834c-a23cb8190035",
+            "colId": "ae4cefd5-bd35-4e5a-a54e-76a910a12d76",
+            "containerId": "528ce9aa-2952-478c-824c-ca903e93161e",
+            "name": "Get All",
+            "url": "{{base_url}}/bank-accounts",
+            "method": "GET",
+            "sortNum": 50000,
+            "created": "2024-01-30T23:01:15.324Z",
+            "modified": "2024-01-30T23:03:42.336Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{access_token}}"
+            },
+            "tests": []
+        },
+        {
+            "_id": "909cd589-56aa-4223-aad8-766af404d5b9",
+            "colId": "ae4cefd5-bd35-4e5a-a54e-76a910a12d76",
+            "containerId": "e7cdbdd6-d1b2-4184-aaa7-88b7381ab0ee",
+            "name": "Get All",
+            "url": "{{base_url}}/transactions",
+            "method": "GET",
+            "sortNum": 50000,
+            "created": "2024-02-01T23:32:35.598Z",
+            "modified": "2024-02-01T23:33:33.069Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{access_token}}"
+            },
+            "tests": []
+        },
+        {
+            "_id": "872654f2-d2f5-4f4c-b848-43bd8c09b6d1",
+            "colId": "ae4cefd5-bd35-4e5a-a54e-76a910a12d76",
+            "containerId": "528ce9aa-2952-478c-824c-ca903e93161e",
+            "name": "Create",
+            "url": "{{base_url}}/bank-accounts",
+            "method": "POST",
+            "sortNum": 55000,
+            "created": "2024-01-30T23:05:26.021Z",
+            "modified": "2024-01-30T23:17:42.996Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"Nubank\",\n  \"initialBalance\": 1000,\n  \"color\": \"#000\",\n  \"type\": \"checking\"\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{access_token}}"
+            },
+            "tests": []
+        },
+        {
+            "_id": "d47eac58-8b67-419a-9072-a45dfcd1e59b",
+            "colId": "ae4cefd5-bd35-4e5a-a54e-76a910a12d76",
+            "containerId": "e7cdbdd6-d1b2-4184-aaa7-88b7381ab0ee",
+            "name": "Create",
+            "url": "{{base_url}}/transactions",
+            "method": "POST",
+            "sortNum": 55000,
+            "created": "2024-02-01T23:32:35.599Z",
+            "modified": "2024-02-01T23:33:31.786Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{access_token}}"
+            },
+            "tests": []
+        },
+        {
+            "_id": "50859f7c-c95f-4009-9517-c4905089ec51",
+            "colId": "ae4cefd5-bd35-4e5a-a54e-76a910a12d76",
+            "containerId": "528ce9aa-2952-478c-824c-ca903e93161e",
+            "name": "Update",
+            "url": "{{base_url}}/bank-accounts/123",
+            "method": "PUT",
+            "sortNum": 57500,
+            "created": "2024-01-30T23:06:24.055Z",
+            "modified": "2024-01-30T23:07:39.246Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{access_token}}"
+            },
+            "tests": []
+        },
+        {
+            "_id": "9d447b1f-c8aa-43b8-8a66-3479ae008bc4",
+            "colId": "ae4cefd5-bd35-4e5a-a54e-76a910a12d76",
+            "containerId": "e7cdbdd6-d1b2-4184-aaa7-88b7381ab0ee",
+            "name": "Update",
+            "url": "{{base_url}}/transactions/123",
+            "method": "PUT",
+            "sortNum": 57500,
+            "created": "2024-02-01T23:32:35.600Z",
+            "modified": "2024-02-01T23:33:29.216Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{access_token}}"
+            },
+            "tests": []
+        },
+        {
+            "_id": "359d4e18-446b-4722-a933-cd106b382289",
+            "colId": "ae4cefd5-bd35-4e5a-a54e-76a910a12d76",
+            "containerId": "528ce9aa-2952-478c-824c-ca903e93161e",
+            "name": "Delete",
+            "url": "{{base_url}}/bank-accounts/123",
+            "method": "DELETE",
+            "sortNum": 60000,
+            "created": "2024-01-30T23:04:49.013Z",
+            "modified": "2024-01-30T23:08:19.396Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{access_token}}"
+            },
+            "tests": []
+        },
+        {
+            "_id": "ad571bd7-9b03-46f8-b5b7-89e6b856c82f",
+            "colId": "ae4cefd5-bd35-4e5a-a54e-76a910a12d76",
+            "containerId": "e7cdbdd6-d1b2-4184-aaa7-88b7381ab0ee",
+            "name": "Delete",
+            "url": "{{base_url}}/transactions/123",
+            "method": "DELETE",
+            "sortNum": 60000,
+            "created": "2024-02-01T23:32:35.601Z",
+            "modified": "2024-02-01T23:33:30.269Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{access_token}}"
+            },
+            "tests": []
+        }
+    ]
+}
