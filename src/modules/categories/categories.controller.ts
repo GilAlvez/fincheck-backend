@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 import { JwtPayload } from 'src/shared/decorators/jwt-payload';
-import { CategoriesService } from './categories.service';
+import { CategoriesService } from './services/categories.service';
 
 @Controller('categories')
 export class CategoriesController {

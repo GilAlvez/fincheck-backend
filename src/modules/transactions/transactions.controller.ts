@@ -3,14 +3,17 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
+  HttpStatus,
   Param,
+  ParseUUIDPipe,
   Post,
   Put,
 } from '@nestjs/common';
 import { JwtPayload } from 'src/shared/decorators/jwt-payload';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { UpdateTransactionDto } from './dto/update-transaction.dto';
-import { TransactionsService } from './transactions.service';
+import { TransactionsService } from './services/transactions.service';
 
 @Controller('transactions')
 export class TransactionsController {
@@ -21,7 +24,10 @@ export class TransactionsController {
     @JwtPayload() jwtPayload: JwtPayload,
     @Body() createTransactionDto: CreateTransactionDto,
   ) {
-    return this.transactionsService.create(createTransactionDto);
+    return this.transactionsService.create(
+      jwtPayload.sub,
+      createTransactionDto,
+    );
   }
 
   @Get()
@@ -31,14 +37,23 @@ export class TransactionsController {
 
   @Put(':transactionId')
   update(
-    @Param('transactionId') transactionId: string,
+    @JwtPayload() jwtPayload: JwtPayload,
+    @Param('transactionId', ParseUUIDPipe) transactionId: string,
     @Body() updateTransactionDto: UpdateTransactionDto,
   ) {
-    return this.transactionsService.update(transactionId, updateTransactionDto);
+    return this.transactionsService.update(
+      jwtPayload.sub,
+      transactionId,
+      updateTransactionDto,
+    );
   }
 
   @Delete(':transactionId')
-  remove(@Param('transactionId') transactionId: string) {
-    return this.transactionsService.remove(transactionId);
+  @HttpCode(HttpStatus.NO_CONTENT)
+  remove(
+    @JwtPayload() jwtPayload: JwtPayload,
+    @Param('transactionId', ParseUUIDPipe) transactionId: string,
+  ) {
+    return this.transactionsService.remove(jwtPayload.sub, transactionId);
   }
 }

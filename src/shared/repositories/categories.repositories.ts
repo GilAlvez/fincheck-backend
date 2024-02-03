@@ -10,4 +10,10 @@ export class CategoriesRepository {
       where: { user_id: id },
     });
   }
+
+  findFirstByUserId(userId: string, categoryId: string) {
+    return this.prismaService.category.findFirst({
+      where: { user_id: userId, id: categoryId },
+    });
+  }
 }

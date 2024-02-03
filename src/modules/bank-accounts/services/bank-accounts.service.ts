@@ -21,7 +21,7 @@ export class BankAccountsService {
 
   async update(
     userId: string,
-    bankAccountId,
+    bankAccountId: string,
     updateBankAccountDto: UpdateBankAccountDto,
   ) {
     await this.validateBankAccountOwnershipService.validate(
