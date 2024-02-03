@@ -1,16 +1,33 @@
 import { Injectable } from '@nestjs/common';
 import { CreateTransactionDto } from 'src/modules/transactions/dto/create-transaction.dto';
+import { UpdateTransactionDto } from 'src/modules/transactions/dto/update-transaction.dto';
 import { PrismaService } from '../services/prisma.service';
 import { generateUUID } from '../utils/generate-uuid';
-import { UpdateTransactionDto } from 'src/modules/transactions/dto/update-transaction.dto';
+import { TransactionType } from '@prisma/client';
 
 @Injectable()
 export class TransactionsRepository {
   constructor(private readonly prismaService: PrismaService) {}
 
-  findManyByUserId(userId: string) {
+  findManyByUserId(
+    userId: string,
+    filters: {
+      month: number;
+      year: number;
+      bankAccountId?: string;
+      type?: TransactionType;
+    },
+  ) {
     return this.prismaService.transaction.findMany({
-      where: { user_id: userId },
+      where: {
+        user_id: userId,
+        bank_account_id: filters.bankAccountId,
+        type: filters.type,
+        date: {
+          gte: new Date(Date.UTC(filters.year, filters.month)),
+          lt: new Date(Date.UTC(filters.year, filters.month + 1)),
+        },
+      },
     });
   }
 

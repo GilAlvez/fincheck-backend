@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { TransactionType } from '@prisma/client';
 import { TransactionsRepository } from 'src/shared/repositories/transactions.repositories';
 import { ValidateBankAccountOwnershipService } from '../../bank-accounts/services/validate-bank-account-ownership.service';
 import { ValidateCategoryOwnershipService } from '../../categories/services/validate-category-ownership.service';
@@ -25,8 +26,16 @@ export class TransactionsService {
     return this.transactionsRepository.create(userId, createTransactionDto);
   }
 
-  findAllByUserId(userId: string) {
-    return this.transactionsRepository.findManyByUserId(userId);
+  findAllByUserId(
+    userId: string,
+    filters: {
+      month: number;
+      year: number;
+      bankAccountId?: string;
+      type?: TransactionType;
+    },
+  ) {
+    return this.transactionsRepository.findManyByUserId(userId, filters);
   }
 
   async update(

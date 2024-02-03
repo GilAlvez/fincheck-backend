@@ -6,13 +6,18 @@ import {
   HttpCode,
   HttpStatus,
   Param,
+  ParseIntPipe,
   ParseUUIDPipe,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 import { JwtPayload } from 'src/shared/decorators/jwt-payload';
+import { OptionalParseEnumPipe } from 'src/shared/pipes/optional-parse-enum-pipe';
+import { OptionalParseUUIDPipe } from 'src/shared/pipes/optional-parse-uuid-pipe';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { UpdateTransactionDto } from './dto/update-transaction.dto';
+import { TransactionType } from './enums/transaction-type';
 import { TransactionsService } from './services/transactions.service';
 
 @Controller('transactions')
@@ -31,8 +36,21 @@ export class TransactionsController {
   }
 
   @Get()
-  findAll(@JwtPayload() jwtPayload: JwtPayload) {
-    return this.transactionsService.findAllByUserId(jwtPayload.sub);
+  findAll(
+    @JwtPayload() jwtPayload: JwtPayload,
+    @Query('month', ParseIntPipe) month: number,
+    @Query('year', ParseIntPipe) year: number,
+    @Query('bankAccountId', OptionalParseUUIDPipe) bankAccountId?: string,
+    @Query('type', new OptionalParseEnumPipe(TransactionType))
+    type?: TransactionType,
+  ) {
+    console.error({ bankAccountId });
+    return this.transactionsService.findAllByUserId(jwtPayload.sub, {
+      month,
+      year,
+      bankAccountId,
+      type,
+    });
   }
 
   @Put(':transactionId')
